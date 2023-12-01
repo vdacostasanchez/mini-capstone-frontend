@@ -5,10 +5,9 @@ export function ProductsIndex(props) {
       {props.products.map((product) => (
         <div key={product.id}>
           <h2>{product.name}</h2>
-          {/* figure out images below */}
           <img src={product.images} />
-          <p>{product.description}</p>
           <p>Price: {product.price}</p>
+          <button onClick={() => props.onShowProduct(product)}>More info</button>
         </div>
       ))}
     </div>
