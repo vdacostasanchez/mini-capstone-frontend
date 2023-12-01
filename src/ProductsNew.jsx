@@ -1,6 +1,6 @@
 export function ProductsNew(props) {
   const handleSubmit = (event) => {
-    event.peventDefault();
+    event.preventDefault();
     const params = new FormData(event.target);
     props.onCreateProduct(params, () => event.target.reset());
   };
@@ -18,7 +18,13 @@ export function ProductsNew(props) {
           Price: <input name="price" type="number" />
         </div>
         <div>
-          Supplier: <input name="supplier" type="text" />
+          Supplier:{" "}
+          <select name="supplier_id" id="supplier">
+            <option value="1">A24</option>
+            <option value="2">Disney</option>
+            <option value="3">Warner Bros</option>
+            <option value="4">Pixar</option>
+          </select>
         </div>
         <div>
           Image url: <input name="image_url" type="text" />
