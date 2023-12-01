@@ -37,6 +37,30 @@ export function Content() {
     setIsProductShowVisible(false);
   };
 
+  const handleUpdateProduct = (id, params, successCallback) => {
+    axios.patch(`http://localhost:3000/products/${id}.json`, params).then((response) => {
+      setProducts(
+        products.map((product) => {
+          if (product.id === response.data.id) {
+            return response.data;
+          } else {
+            return product;
+          }
+        })
+      );
+      successCallback();
+      handleClose();
+    });
+  };
+
+  const handleDestroyProduct = (product) => {
+    axios.delete(`http://localhost:3000/products/${product.id}.json`).then((response) => {
+      console.log(response.data);
+      setProducts(products.filter((p) => p.id !== product.id));
+      handleClose();
+    });
+  };
+
   return (
     <main>
       <h1>Welcome to React!</h1>
@@ -45,7 +69,11 @@ export function Content() {
       <ProductsNew onCreateProduct={handleCreateProduct} />
       <ProductsIndex products={products} onShowProduct={handleShowProduct} />
       <Modal show={isProductShowVisible} onClose={handleClose}>
-        <ProductShow product={currentProduct} />
+        <ProductShow
+          product={currentProduct}
+          onUpdateProduct={handleUpdateProduct}
+          onDestroyProduct={handleDestroyProduct}
+        />
       </Modal>
     </main>
   );
